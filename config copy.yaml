@@ -1,0 +1,28 @@
+# Simple Configuration
+
+# Window Settings
+window:
+  width: 1920
+  height: 1080
+  title: "LiDAR Viewer"
+
+# Display
+display:
+  background_color: [0.1, 0.1, 0.1]
+  point_size: 2.0
+
+# Camera
+camera:
+  fov: 45.0
+  speed: 5.0
+
+# Data Processing
+processing:
+  voxel_size: 0.05        # Downsample size in meters
+  max_points: 5000000     # Maximum points to display
+
+# Detection
+detection:
+  model: "pointnet++"
+  confidence: 0.7
+  device: "cuda"          # or "cpu"

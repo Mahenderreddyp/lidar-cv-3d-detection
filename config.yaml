@@ -1,0 +1,287 @@
+# LiDAR CV 3D Detection System Configuration
+
+# Project Settings
+project:
+  name: "LiDAR CV 3D Detection"
+  version: "0.1.0"
+  author: "Mahender Reddy Pokala"
+  
+# Paths
+paths:
+  data_root: "data/"
+  raw_data: "data/raw/"
+  processed_data: "data/processed/"
+  models: "data/models/"
+  outputs: "outputs/"
+  screenshots: "outputs/screenshots/"
+  exports: "outputs/exports/"
+  logs: "logs/"
+
+# Rendering Settings
+rendering:
+  # Window configuration
+  window:
+    width: 1920
+    height: 1080
+    title: "LiDAR Point Cloud Viewer"
+    vsync: true
+    fullscreen: false
+    
+  # Display settings
+  display:
+    background_color: [0.1, 0.1, 0.1, 1.0]  # RGBA
+    point_size: 2.0
+    point_size_range: [1.0, 10.0]
+    line_width: 1.5
+    
+  # Camera settings
+  camera:
+    fov: 45.0  # Field of view in degrees
+    near_clip: 0.1
+    far_clip: 10000.0
+    movement_speed: 5.0
+    rotation_speed: 0.5
+    zoom_speed: 1.0
+    initial_distance: 50.0
+    target: [0.0, 0.0, 0.0]
+    
+  # Color schemes
+  colors:
+    default: "height"  # Options: height, intensity, classification, rgb
+    height_colormap: "viridis"  # matplotlib colormap
+    intensity_range: [0, 255]
+    
+  # Performance
+  performance:
+    max_points_display: 10000000  # 10M points
+    use_lod: true  # Level of detail
+    lod_levels: [1.0, 0.5, 0.25, 0.1]  # Progressive downsampling
+    frustum_culling: true
+    occlusion_culling: false
+
+# Data Preprocessing
+preprocessing:
+  # Loading
+  loading:
+    lazy_load: true
+    chunk_size: 1000000  # Points per chunk
+    max_memory_gb: 8.0
+    
+  # Coordinate system
+  coordinates:
+    auto_center: true
+    normalize: true
+    coordinate_system: "local"  # Options: local, utm, wgs84
+    
+  # Filtering
+  filtering:
+    remove_outliers: true
+    outlier_std_ratio: 2.0
+    statistical_outlier_nb_neighbors: 20
+    
+  # Downsampling
+  downsampling:
+    method: "voxel"  # Options: voxel, random, fps (farthest point sampling)
+    voxel_size: 0.05  # meters
+    target_points: null  # If set, override voxel_size
+    
+  # Ground segmentation
+  ground_removal:
+    method: "ransac"  # Options: ransac, cloth_simulation, progressive_morphological
+    ransac_distance_threshold: 0.2
+    ransac_max_iterations: 1000
+    ransac_n_points: 3
+    keep_ground: false
+    
+  # Clustering
+  clustering:
+    method: "dbscan"  # Options: dbscan, hdbscan, kmeans
+    eps: 0.5
+    min_samples: 50
+    max_cluster_size: 100000
+    min_cluster_size: 100
+
+# Object Detection
+detection:
+  # Model selection
+  model:
+    type: "pointnet++"  # Options: pointnet++, pointnet, yolo, sam, hybrid
+    weights_path: "data/models/best_model.pth"
+    use_pretrained: true
+    
+  # Inference settings
+  inference:
+    batch_size: 8
+    device: "cuda"  # Options: cuda, cpu, mps
+    mixed_precision: true
+    confidence_threshold: 0.7
+    nms_threshold: 0.4
+    max_detections: 100
+    
+  # PointNet++ specific
+  pointnet:
+    num_points: 4096
+    num_classes: 7  # Building, tree, vehicle, pole, ground, other
+    use_normals: true
+    use_intensity: true
+    
+  # YOLO 2D projection
+  yolo:
+    model_size: "x"  # Options: n, s, m, l, x
+    image_size: 640
+    projection_method: "orthographic"  # Options: perspective, orthographic
+    projection_views: ["top", "front", "side"]
+    
+  # SAM integration
+  sam:
+    model_type: "vit_h"  # Options: vit_h, vit_l, vit_b
+    points_per_side: 32
+    pred_iou_thresh: 0.88
+    stability_score_thresh: 0.95
+    
+  # Object classes
+  classes:
+    - id: 0
+      name: "building"
+      color: [0.8, 0.2, 0.2]
+    - id: 1
+      name: "tree"
+      color: [0.2, 0.8, 0.2]
+    - id: 2
+      name: "vehicle"
+      color: [0.2, 0.2, 0.8]
+    - id: 3
+      name: "pole"
+      color: [0.8, 0.8, 0.2]
+    - id: 4
+      name: "sign"
+      color: [0.8, 0.2, 0.8]
+    - id: 5
+      name: "ground"
+      color: [0.5, 0.5, 0.5]
+    - id: 6
+      name: "other"
+      color: [0.3, 0.3, 0.3]
+
+# Change Detection
+change_detection:
+  enabled: true
+  alignment:
+    method: "icp"  # Options: icp, ndt, feature_based
+    max_correspondence_distance: 0.5
+    max_iterations: 50
+    
+  comparison:
+    method: "c2c"  # Options: c2c (cloud-to-cloud), c2m (cloud-to-mesh)
+    distance_threshold: 0.3  # meters
+    
+  classification:
+    added_threshold: 0.3
+    removed_threshold: 0.3
+    changed_threshold: 0.5
+    
+  visualization:
+    added_color: [0.0, 1.0, 0.0]  # Green
+    removed_color: [1.0, 0.0, 0.0]  # Red
+    changed_color: [1.0, 1.0, 0.0]  # Yellow
+    unchanged_color: [0.5, 0.5, 0.5]  # Gray
+
+# Export Settings
+export:
+  # Format options
+  formats:
+    - geojson
+    - shapefile
+    - kml
+    - csv
+    
+  # GeoJSON settings
+  geojson:
+    indent: 2
+    include_properties: true
+    coordinate_precision: 6
+    
+  # Shapefile settings
+  shapefile:
+    driver: "ESRI Shapefile"
+    encoding: "utf-8"
+    
+  # Include metadata
+  metadata:
+    include_timestamp: true
+    include_confidence: true
+    include_bbox: true
+    include_dimensions: true
+
+# Training Settings (for custom models)
+training:
+  # General
+  epochs: 100
+  batch_size: 32
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  optimizer: "adam"  # Options: adam, sgd, adamw
+  scheduler: "cosine"  # Options: step, cosine, plateau
+  
+  # Data augmentation
+  augmentation:
+    enabled: true
+    rotation_range: 180
+    scale_range: [0.8, 1.2]
+    jitter_std: 0.01
+    flip_probability: 0.5
+    
+  # Validation
+  validation:
+    split: 0.2
+    frequency: 5  # epochs
+    save_best_only: true
+    
+  # Checkpointing
+  checkpoint:
+    save_frequency: 10  # epochs
+    keep_last_n: 5
+    save_optimizer: true
+
+# Logging
+logging:
+  level: "INFO"  # Options: DEBUG, INFO, WARNING, ERROR
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "logs/app.log"
+  console: true
+  
+# Performance Monitoring
+monitoring:
+  enabled: true
+  fps_display: true
+  memory_monitoring: true
+  gpu_monitoring: true
+  profiling: false
+
+# GUI Settings
+gui:
+  theme: "dark"  # Options: dark, light
+  font_size: 14
+  show_toolbar: true
+  show_statusbar: true
+  show_properties_panel: true
+  auto_save_layout: true
+
+# Advanced Features
+advanced:
+  # Multi-threading
+  threading:
+    enabled: true
+    num_workers: 4
+    
+  # GPU acceleration
+  gpu:
+    enabled: true
+    device_id: 0
+    memory_fraction: 0.8
+    
+  # Distributed processing
+  distributed:
+    enabled: false
+    backend: "nccl"
+    world_size: 1

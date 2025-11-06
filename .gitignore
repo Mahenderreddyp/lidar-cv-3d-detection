@@ -1,0 +1,306 @@
+# LiDAR 3D Point Cloud Viewer - .gitignore
+
+# ============================================================================
+# Python
+# ============================================================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# ============================================================================
+# Virtual Environment
+# ============================================================================
+venv/
+ENV/
+env/
+.venv
+lidarvision/
+.virtualenv/
+
+# ============================================================================
+# IDEs and Editors
+# ============================================================================
+
+# VSCode
+.vscode/
+*.code-workspace
+
+# PyCharm
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*~
+.vim/
+
+# Emacs
+*~
+\#*\#
+.\#*
+
+# ============================================================================
+# Operating System Files
+# ============================================================================
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+.directory
+.Trash-*
+
+# ============================================================================
+# LiDAR Data Files (LARGE FILES - DO NOT COMMIT)
+# ============================================================================
+
+# LAS/LAZ files
+data/*.las
+data/*.laz
+data/**/*.las
+data/**/*.laz
+data/raw/*.las
+data/raw/*.laz
+
+# Point cloud formats
+*.pcd
+*.ply
+*.xyz
+*.pts
+*.asc
+
+# Compressed archives
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.rar
+*.7z
+
+# Large numpy arrays
+data/processed/*.npy
+data/processed/*.npz
+*.npy
+*.npz
+
+# HDF5 files
+*.h5
+*.hdf5
+
+# Keep data directory structure (but not contents)
+!data/.gitkeep
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+!data/models/.gitkeep
+
+# ============================================================================
+# Model Files (LARGE FILES - DO NOT COMMIT)
+# ============================================================================
+data/models/*.pth
+data/models/*.pt
+data/models/*.onnx
+data/models/*.pb
+data/models/*.pkl
+data/models/*.weights
+data/models/*.h5
+*.pth
+*.pt
+*.onnx
+
+# Keep model directory structure
+!data/models/.gitkeep
+
+# ============================================================================
+# Output Files
+# ============================================================================
+
+# Screenshots (keep folder structure)
+outputs/screenshots/*.png
+outputs/screenshots/*.jpg
+outputs/screenshots/*.jpeg
+!outputs/screenshots/.gitkeep
+
+# Exports
+outputs/exports/*.json
+outputs/exports/*.geojson
+outputs/exports/*.shp
+outputs/exports/*.kml
+!outputs/exports/.gitkeep
+
+# Videos
+outputs/videos/*.mp4
+outputs/videos/*.avi
+outputs/videos/*.mov
+!outputs/videos/.gitkeep
+
+# Reports
+outputs/reports/*.pdf
+outputs/reports/*.html
+!outputs/reports/.gitkeep
+
+# ============================================================================
+# Logs
+# ============================================================================
+logs/
+*.log
+*.log.*
+.log
+
+# ============================================================================
+# Testing
+# ============================================================================
+.coverage
+.pytest_cache/
+htmlcov/
+.tox/
+.hypothesis/
+.pytest_cache/
+cover/
+*.cover
+.cache
+nosetests.xml
+coverage.xml
+*.coveragerc
+
+# ============================================================================
+# Jupyter Notebooks
+# ============================================================================
+.ipynb_checkpoints/
+*.ipynb_checkpoints/
+notebooks/**/.ipynb_checkpoints/
+
+# ============================================================================
+# Environment Variables
+# ============================================================================
+.env
+.env.local
+.env.*.local
+.envrc
+
+# ============================================================================
+# Documentation Build
+# ============================================================================
+docs/_build/
+docs/_static/
+docs/_templates/
+site/
+
+# ============================================================================
+# Profiling and Performance
+# ============================================================================
+*.prof
+*.lprof
+*.pyprof
+
+# ============================================================================
+# Cache
+# ============================================================================
+.cache/
+*.cache
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.ruff_cache/
+
+# ============================================================================
+# Compiled Files
+# ============================================================================
+*.o
+*.obj
+*.dll
+*.exe
+*.out
+*.app
+*.so
+*.dylib
+
+# ============================================================================
+# Temporary Files
+# ============================================================================
+tmp/
+temp/
+*.tmp
+*.bak
+*.backup
+*~
+
+# ============================================================================
+# GPU/CUDA Cache
+# ============================================================================
+.nv/
+
+# ============================================================================
+# Project Specific
+# ============================================================================
+
+# Keep important empty directories
+!scripts/.gitkeep
+!tests/.gitkeep
+!screenshots/.gitkeep
+
+# Ignore local config overrides
+config.local.yaml
+*.local.yaml
+
+# Ignore sandbox/experiment files
+sandbox/
+experiments/
+scratch/
+
+# Ignore large intermediate files
+*.intermediate
+*.partial
+
+# ============================================================================
+# Keep These Files (Exception Rules)
+# ============================================================================
+
+# Always include these
+!.gitignore
+!README.md
+!LICENSE
+!requirements.txt
+!setup.py
+!config.yaml
+!.python-version
+
+# Keep example/sample files (small ones only)
+!data/sample/.gitkeep
+!data/sample/README.md

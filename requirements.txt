@@ -1,0 +1,30 @@
+# Core Dependencies
+numpy>=1.21.0
+scipy>=1.7.0
+
+# Point Cloud Processing
+laspy>=2.0.0              # LAS/LAZ files
+open3d>=0.16.0            # 3D processing
+
+# OpenGL & Graphics
+PyOpenGL>=3.1.6
+PyOpenGL-accelerate>=3.1.6
+glfw>=2.5.0               # Window management
+PyGLM>=2.5.0              # Math library
+
+# Deep Learning
+torch>=2.0.0
+torchvision>=0.15.0
+
+# Computer Vision
+opencv-python>=4.7.0
+ultralytics>=8.0.0        # YOLO
+
+# Utilities
+pyyaml>=6.0
+tqdm>=4.64.0
+matplotlib>=3.5.0
+
+# Development (optional)
+pytest>=7.2.0
+black>=23.0.0
