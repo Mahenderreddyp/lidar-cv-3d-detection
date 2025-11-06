@@ -297,9 +297,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 Machine Learning Engineer specializing in Computer Vision
 
-- 🔗 LinkedIn: [Your LinkedIn](https://linkedin.com/in/yourprofile)
-- 📧 Email: your.email@example.com
-- 💼 Portfolio: [Your Portfolio](https://yourwebsite.com)
+- 🔗 LinkedIn: [Your LinkedIn](https://linkedin.com/in/mmsv)
+- 📧 Email: Mahenderreddy.ai@gmail.com
+- 💼 Portfolio: [Your Portfolio](https://Mahenderp.com)
 
 ## 🙏 Acknowledgments
 
